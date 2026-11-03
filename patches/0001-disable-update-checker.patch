@@ -1,0 +1,21 @@
+diff --git a/crates/ui-egui/src/updates_ui.rs b/crates/ui-egui/src/updates_ui.rs
+index 2553fbb..478d003 100644
+--- a/crates/ui-egui/src/updates_ui.rs
++++ b/crates/ui-egui/src/updates_ui.rs
+@@ -26,12 +26,10 @@ impl Default for Runtime {
+ }
+ 
+ /// Ask for a check; the next frame's `tick` starts it. A manual one reports every outcome.
+-pub(crate) fn start(app: &mut SheetApp, manual: bool) {
+-    if manual {
+-        app.updates_rt.manual = true;
+-    } else {
+-        app.updates_rt.startup = true;
+-    }
++pub(crate) fn start(_app: &mut SheetApp, manual: bool) {
++    // The AppImage is updated by its own package manager, so neither the check at start nor
++    // Help > Check for Updates starts one (which could offer to replace this build).
++    let _ = manual;
+ }
+ 
+ pub(crate) fn tick(app: &mut SheetApp, ctx: &egui::Context) {
